@@ -7,7 +7,7 @@
    let carrousel__form = document.querySelector('.carrousel__form')
    console.log(carrousel__form.tagName) //conteneur de radio-boutons
 
-   let galerie = document.querySelector('.galerie')
+   let galerie = document.querySelector('.galerie', )
    let galerie__img = galerie.querySelectorAll('img')
 
    carrousel__ouvrir.addEventListener('mousedown', function(){
@@ -17,6 +17,11 @@
 
    carrousel__x.addEventListener('mousedown', function(){
       carrousel.classList.remove('carrousel--activer')
+   })
+
+   galerie.addEventListener('mousedown', function(){
+      carrousel.classList.add('carrousel--activer')
+      ajouter_les_images_de_galerie()
    })
 
 /**
