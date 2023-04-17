@@ -38,3 +38,17 @@
  
 }
 
+.carrousel__form{
+    display: block;
+    text-align: center;
+    position : absolute;
+    bottom: 0;
+    border: black solid 1px;
+    z-index : 3;
+    width: 100%;
+}
+
+.carrousel__rad{
+    display: inline-block;
+    margin: 5px;
+}
