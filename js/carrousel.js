@@ -10,8 +10,7 @@
    let galerie = document.querySelector('.galerie', )
    let galerie__img = galerie.querySelectorAll('img')
 
-   carrousel__ouvrir.addEventListener('mousedown', function(){
-      carrousel.classList.add('carrousel--activer')
+   galerie.addEventListener('mousedown', function(){
       ajouter_les_images_de_galerie()
    })
 
@@ -32,10 +31,12 @@ let index = 0
 let ancienIndex = -1
 function ajouter_les_images_de_galerie()
 {
+   carrousel.classList.add('carrousel--activer')
+ 
    for (const elem of galerie__img){
       ajouter_une_image_dans_carrousel(elem)
       ajouter_un_radio_bouton_dans_le_carrousel()
-      //écouteur
+      //écouteur 
       //la fonction doit exécuter une seul fois
       //ajouter fonction affiche_image_carrousel
    }
