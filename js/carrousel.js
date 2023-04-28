@@ -1,27 +1,22 @@
 (function(){
-   console.log('Début du carrousel')
+   //console.log('Début du carrousel')
    let carrousel__ouvrir = document.querySelector('.carrousel__ouvrir')
    let carrousel = document.querySelector('.carrousel')
    let carrousel__x = document.querySelector('.carrousel__x')
    let carrousel__figure = document.querySelector('.carrousel__figure')
    let carrousel__form = document.querySelector('.carrousel__form')
-   console.log(carrousel__form.tagName) //conteneur de radio-boutons
+   //console.log(carrousel__form.tagName) //conteneur de radio-boutons
 
    let galerie = document.querySelector('.galerie', )
    let galerie__img = galerie.querySelectorAll('img')
 
    galerie.addEventListener('mousedown', function(){
-      ajouter_les_images_de_galerie()
-   })
+         carrousel.classList.add('carrousel--activer')
+     })
 
    carrousel__x.addEventListener('mousedown', function(){
       carrousel.classList.remove('carrousel--activer')
    })
-
-   /*galerie.addEventListener('mousedown', function(){
-      carrousel.classList.add('carrousel--activer')
-      ajouter_les_images_de_galerie()
-   })*/
 
 /**
  * Pour chaque image de la galerie l'ajouter dans le carrousel
@@ -29,18 +24,19 @@
 let position = 0
 let index = 0
 let ancienIndex = -1
-function ajouter_les_images_de_galerie()
-{
-   carrousel.classList.add('carrousel--activer')
- 
+
    for (const elem of galerie__img){
+
+      elem.dataset.index = position
+      elem.addEventListener('mousedown',function(){
+      index = this.dataset.index
+      affiche_image_carrousel(index)
+    })
+
       ajouter_une_image_dans_carrousel(elem)
       ajouter_un_radio_bouton_dans_le_carrousel()
-      //écouteur 
-      //la fonction doit exécuter une seul fois
-      //ajouter fonction affiche_image_carrousel
    }
-}
+
 
 /**
  * Création dynamique d'une image pour le carrousel
@@ -75,11 +71,11 @@ function ajouter_un_radio_bouton_dans_le_carrousel(){
 function affiche_image_carrousel(){
    if(ancienIndex != -1){
       carrousel__figure.children[ancienIndex].style.opacity = "0"
-      //carrousel__figure.children[ancienIndex].classList.remove('classebichoutruc--activer');
+      //carrousel__figure.children[ancienIndex].classList.remove('carrousel__img--activer');
    }
    //console.log(this.dataset.index)
    carrousel__figure.children[index].style.opacity = "1"
-   //carrousel__figure.children[index].classList.add('classebichoutruc--activer');
+   //carrousel__figure.children[index].classList.add('carrousel__img--activer');
    ancienIndex = index
 }
 
