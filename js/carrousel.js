@@ -5,6 +5,8 @@
    let carrousel__x = document.querySelector('.carrousel__x')
    let carrousel__figure = document.querySelector('.carrousel__figure')
    let carrousel__form = document.querySelector('.carrousel__form')
+   let carrousel__gauche = document.querySelector('.carrousel__gauche')
+   let carrousel__droite = document.querySelector('.carrousel__droite')
    //console.log(carrousel__form.tagName) //conteneur de radio-boutons
 
    let galerie = document.querySelector('.galerie', )
@@ -28,13 +30,15 @@ let ancienIndex = -1
    for (const elem of galerie__img){
 
       elem.dataset.index = position
+
       elem.addEventListener('mousedown',function(){
       index = this.dataset.index
       affiche_image_carrousel(index)
+      console.log(index)
     })
 
       ajouter_une_image_dans_carrousel(elem)
-      ajouter_un_radio_bouton_dans_le_carrousel()
+      ajouter_des_boutons_dans_le_carrousel()
    }
 
 
@@ -51,18 +55,28 @@ function ajouter_une_image_dans_carrousel(elem)
    carrousel__figure.append(img);
 }
 
-function ajouter_un_radio_bouton_dans_le_carrousel(){
-   let rad = document.createElement('input')
-   rad.setAttribute('type', 'radio')
-   rad.setAttribute('name', 'carrousel__rad')
-   rad.classList.add('carrousel__rad')
-   rad.dataset.index = position
-   rad.addEventListener('mousedown', function(){
+function ajouter_des_boutons_dans_le_carrousel(){
+   //let bou = document.createElement('input')
+   //bou.setAttribute('type', 'button')
+   //bou.setAttribute('name', 'carrousel__bou')
+   carrousel__gauche.addEventListener('mousedown', function(){
+      //carrousel.classList.add('carrousel__moins')
+      index = 3
+      console.log(index)
+  })
+  carrousel__droite.addEventListener('mousedown', function(){
+   carrousel.classList.add('carrousel__plus')
+
+})
+   /*bou.classList.add('carrousel__bou')
+   bou.dataset.index = position
+   bou.addEventListener('mousedown', function(){
+      position = position + 1
       index = this.dataset.index
       affiche_image_carrousel();
-   })
+   })*/
    position = position + 1 //incrémentation de la position
-   carrousel__form.appendChild(rad);
+   //carrousel__form.appendChild(bou);
 }
 
 /**
