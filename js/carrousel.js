@@ -67,7 +67,7 @@ function ajouter_une_image_dans_carrousel(elem)
    // -150x150.jpg  si c'est jpg...
    img.src = elem.src.substr(0,elem.src.length-12) + ".jpg"
    // console.log(img.src)
-   carrousel__figure.append(img);
+   carrousel__figure.appendChild(img);
 }
 
 function ajouter_un_radio_bouton_dans_carrousel(){
