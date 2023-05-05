@@ -12,9 +12,21 @@
    let galerie = document.querySelector('.galerie', )
    let galerie__img = galerie.querySelectorAll('img')
 
-   galerie.addEventListener('mousedown', function(){
-         carrousel.classList.add('carrousel--activer')
-     })
+   carrousel__gauche.addEventListener('mousedown', function(){
+      index--
+      if(index == -1){
+         index = galerie__img.length-1
+      }
+      affiche_image_carrousel()
+   })
+
+   carrousel__droite.addEventListener('mousedown', function(){
+      index++
+      if(index == galerie__img.length){
+        index = 0
+      }
+      affiche_image_carrousel()
+   })
 
    carrousel__x.addEventListener('mousedown', function(){
       carrousel.classList.remove('carrousel--activer')
@@ -31,14 +43,16 @@ let ancienIndex = -1
 
       elem.dataset.index = position
 
-      elem.addEventListener('mousedown',function(){
-      index = this.dataset.index
-      affiche_image_carrousel(index)
-      console.log(index)
+      elem.addEventListener('mousedown',function(e){
+         index = e.target.dataset.index
+         affiche_image_carrousel()
+         if(carrousel.classList.contains('carrousel--activer') == false){
+            carrousel.classList.add('carrousel--activer')
+         }
     })
 
       ajouter_une_image_dans_carrousel(elem)
-      ajouter_des_boutons_dans_le_carrousel()
+      ajouter_un_radio_bouton_dans_carrousel()
    }
 
 
@@ -50,34 +64,25 @@ function ajouter_une_image_dans_carrousel(elem)
 {
    let img = document.createElement('img')
    img.classList.add('carrousel__img')
-   img.src = elem.src
+   // -150x150.jpg  si c'est jpg...
+   img.src = elem.src.substr(0,elem.src.length-12) + ".jpg"
    // console.log(img.src)
    carrousel__figure.append(img);
 }
 
-function ajouter_des_boutons_dans_le_carrousel(){
-   //let bou = document.createElement('input')
-   //bou.setAttribute('type', 'button')
-   //bou.setAttribute('name', 'carrousel__bou')
-   carrousel__gauche.addEventListener('mousedown', function(){
-      //carrousel.classList.add('carrousel__moins')
-      index = 3
-      console.log(index)
-  })
-  carrousel__droite.addEventListener('mousedown', function(){
-   carrousel.classList.add('carrousel__plus')
-
-})
-   /*bou.classList.add('carrousel__bou')
-   bou.dataset.index = position
-   bou.addEventListener('mousedown', function(){
-      position = position + 1
-      index = this.dataset.index
-      affiche_image_carrousel();
-   })*/
-   position = position + 1 //incrémentation de la position
-   //carrousel__form.appendChild(bou);
-}
+function ajouter_un_radio_bouton_dans_carrousel(){
+   let rad = document.createElement('input')
+   rad.setAttribute('type','radio')
+   rad.setAttribute('name','carrousel__rad')
+   rad.classList.add('carrousel__rad')
+   rad.dataset.index = position
+   rad.addEventListener('mousedown', function(){
+     index =  this.dataset.index
+     affiche_image_carrousel()
+   })
+   position = position + 1 // incrémentation de la position
+   carrousel__form.append(rad)
+} 
 
 /**
  * Affiche la nouvelle image du carrouel
@@ -85,13 +90,47 @@ function ajouter_des_boutons_dans_le_carrousel(){
 function affiche_image_carrousel(){
    if(ancienIndex != -1){
       carrousel__figure.children[ancienIndex].style.opacity = "0"
+      carrousel__form.children[ancienIndex].checked=false
       //carrousel__figure.children[ancienIndex].classList.remove('carrousel__img--activer');
    }
    //console.log(this.dataset.index)
+   redimensionner_carrousel()
    carrousel__figure.children[index].style.opacity = "1"
+   carrousel__form.children[index].checked=true
    //carrousel__figure.children[index].classList.add('carrousel__img--activer');
    ancienIndex = index
 }
 
+function redimensionner_carrousel(){
+   const windowWidth = window.innerWidth
+   const windowHeight = window.innerHeight
+   const imageWidth = carrousel__figure.children[index].naturalWidth
+   const imageHeight = carrousel__figure.children[index].naturalHeight
+   let carrouselWidth = carrousel.offsetWidth
+   let carrouselHeight = carrousel.offsetHeight
+
+   // pour fenêtre inférieur à 1000px de large
+   carrouselWidth=windowWidth
+   if(windowWidth>1000){
+      carrouselWidth = windowWidth - windowHeight/2
+   }
+   carrouselWidth = windowWidth - windowHeight/2
+   carrouselHeight = carrouselWidth * imageHeight/imageWidth
+
+   carrousel.style.width = `${carrouselWidth}px`
+   carrousel.style.height = `${carrouselHeight}px`
+
+   carrousel.style.left = `${(windowWidth - carrouselWidth)/2}px`
+   carrousel.style.top = `${(windowHeight - carrouselHeight)/2}px`
+
+   console.log(
+      `windowWidth= ${windowWidth}
+      windowHeight= ${windowHeight}
+      imageWidth= ${imageWidth}
+      imageHeight= ${imageHeight}
+      carrouselWidth= ${carrouselWidth}
+      carrouselHeight= ${carrouselHeight}`
+   )
+}
 
 })()

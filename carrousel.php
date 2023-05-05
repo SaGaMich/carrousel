@@ -34,11 +34,9 @@ function creation_carrousel()
     <div class='carrousel'>
     <button class='carrousel__x'>X</button>
     <figure class='carrousel__figure'></figure>
-    <div class='carrousel__bouton'>
-    <button class='carrousel__gauche'><--</button>
-    <button class='carrousel__droite'>--></button>
-    </div>
     <form class='carrousel__form'></form>
+    <button class='carrousel__gauche'>&#8592;</button>
+    <button class='carrousel__droite'>&#8594;</button>
     </div> <!-- fin du carrousel -->
     ";
 }
